@@ -3,7 +3,6 @@ var viewDifferentDays;
 var lengthofDay = 9;
 var workTimeStart = 9;
 
-startDay(todaysDate);
 function startDay (day) {
     //set which day you are viewing
     viewDifferentDays = day;
@@ -81,9 +80,7 @@ function startDay (day) {
     }
 
 }
-$("sBtn" + dispTime).on("click", function () {
-    startDay(todaysDate);
-  });
+
 function uls(day, time, event) {
   var newDay = [];
   //loop through the events currently on the page to create an array
@@ -97,22 +94,31 @@ function uls(day, time, event) {
   console.log("saving array: " + newDay);
   localStorage.setItem(day, JSON.stringify(newDay));
 }
-//go back one day from the day currently shown
-$("#yesterday").on("click", function () {
-    var yest = moment(viewDifferentDays, "MMMM Do YYYY").subtract(1, "day").format("MMMM Do YYYY");
-    uls(viewDifferentDays);
-    clearDay();
-    startDay(yest);
-  });
-//go forward one day from the day currently shown
-$("#tomorrow").on("click", function () {
-    var tom = moment(viewDifferentDays, "MMMM Do YYYY").add(1, "day").format("MMMM Do YYYY");
-    uls(viewDifferentDays);
-    clearDay();
-    startDay(tom);
-  });
+
 function clearDay (){
   //clear out all of the events
   $("#timeblocks").empty();
 }
+
+//go back one day from the day currently shown
+$("#yesterday").on("click", function () {
+  var yest = moment(viewDifferentDays, "MMMM Do YYYY").subtract(1, "day").format("MMMM Do YYYY");
+  uls(viewDifferentDays);
+  clearDay();
+  startDay(yest);
+});
+
+//go forward one day from the day currently shown
+$("#tomorrow").on("click", function () {
+  var tom = moment(viewDifferentDays, "MMMM Do YYYY").add(1, "day").format("MMMM Do YYYY");
+  uls(viewDifferentDays);
+  clearDay();
+  startDay(tom);
+});
+
+
+startDay(todaysDate);
+
+
+
  
